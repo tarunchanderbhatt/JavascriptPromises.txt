@@ -1,0 +1,52 @@
+import { Component, OnInit } from '@angular/core';
+import { promise } from 'protractor';
+
+@Component({
+  selector: 'app-promise',
+  templateUrl: './promise.component.html',
+  styleUrls: ['./promise.component.scss'],
+})
+export class PromiseComponent implements OnInit {
+  constructor() { }
+
+  DellAvailable() {
+    return false
+  }
+
+  HpAvailable() {
+    return false
+  }
+
+  promiceVal;
+  ngOnInit(): void {
+
+    const byLaptop = new Promise((resolve, reject) => {
+      if (this.DellAvailable()) {
+        return setTimeout(() => {
+          resolve('Dell is Purchesed ');
+        }, 3000);
+      } else if (this.HpAvailable()) {
+        return setTimeout(() => {
+          resolve('Hp is Purchesed');
+        }, 4000);
+      } else {
+        return setTimeout(() => {
+          reject('Laptop is not available on store');
+        }, 4000);
+
+      }
+    });
+
+
+    byLaptop.then(res => {
+      console.log('then code =>', res);
+      this.promiceVal = res;
+    }).catch(res => {
+      console.log('catch code => ', res);
+      this.promiceVal = res;
+    });
+
+  }
+
+
+}
